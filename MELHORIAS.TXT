@@ -1,0 +1,7 @@
+-> Colocar um link em cada skin da home para mandar para a página específica da skin, nela terá a descrição, float,
+escolha por raridade, preços e etc 
+
+-> Nesse link de cima usar a API abaixo: 
+https://www.steamwebapi.com/steam/api/items?key=K8Z80N5E7QG97DQB&game=cs2
+(no site tem muitos filtros então tem que deixar dinâmico quando fazer a chamada)
+(no estilo do SISMOV com query e tal)

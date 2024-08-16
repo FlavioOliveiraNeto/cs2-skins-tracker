@@ -1,0 +1,72 @@
+.container {
+    margin: 0;
+    width: 100%;
+    height: auto;
+    display: grid;
+    gap: 2rem;
+
+    .header {
+        margin: 0;
+        width: 100%;
+        height: auto;
+        background-color: blue;
+    }
+
+    .body {
+        margin: 0;
+        width: 100%;
+        height: auto;
+        display: grid;
+        gap: 3rem;
+        justify-items: center;
+
+        h2 {
+            margin: 0;
+            padding: 0;
+            color: blue;
+        }
+    
+        .table {
+            width: fit-content;
+            display: grid;
+            grid-template-areas: "a b c d";
+            margin: 0;
+            padding: 0;
+            gap: 3rem;
+    
+            li {
+                text-decoration: none;
+                display: block;
+                width: fit-content;
+                img {
+                    width: 11rem;
+                    height: auto;
+                }
+            }
+        }
+    
+        .pagination ::ng-deep .ngx-pagination {
+            height: fit-content;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: .3rem;
+            font-size: 1.1rem;
+    
+            .current {
+                color: #000;
+                border-radius: 1rem;
+            }
+            a:hover {
+                border-radius: 1rem;
+            }
+        }
+    }
+
+    .footer {
+        margin: 0;
+        width: 100%;
+        height: auto;
+        background-color: red;
+    }
+}
