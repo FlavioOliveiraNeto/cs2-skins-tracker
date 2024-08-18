@@ -34,4 +34,16 @@ export class LayoutComponent implements OnInit {
       }
     });
   }
+
+  // Função para abrir a página específica das skins
+  returnSkinPage(key: string, game: string, item_type: string, item_name: string, currency: string): string {
+    let item_type_encoded = encodeURIComponent(item_type);
+    let item_name_encoded = encodeURIComponent(item_name);
+    let url_skin_page = 'https://www.steamwebapi.com/steam/api/items?key='+key+
+                        '&game='+game+
+                        '&item_type='+item_type_encoded+
+                        '&item_name='+item_name_encoded+
+                        '&currency='+currency;
+    return url_skin_page;                    
+  }
 }
