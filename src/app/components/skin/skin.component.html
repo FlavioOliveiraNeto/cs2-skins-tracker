@@ -1,0 +1,17 @@
+<div *ngIf="loading" class="modal">
+    <p>Carregando!!</p>
+  </div>
+  <div *ngIf="!loading" class="container">
+      <div class="header">Header</div>
+      <div *ngIf="skinDetails" class="body">
+        <h2>List of CSGO Skins</h2>
+        <ul class="table">
+          <li *ngFor="let skinDetail of skinDetails | paginate: { itemsPerPage: 12, currentPage: page }">
+            <strong>Name:</strong> {{ skinDetail.markethashname }} <br>
+          </li>
+        </ul>
+        <pagination-controls class="pagination" (pageChange)="page = $event"></pagination-controls>
+      </div>
+      <div class="footer">Footer</div>
+</div>
+    
