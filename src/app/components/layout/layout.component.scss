@@ -1,72 +1,243 @@
 .container {
     margin: 0;
-    width: 100%;
-    height: auto;
+    padding: 0;
+    height: 100vh;
     display: grid;
-    gap: 2rem;
-
+    grid-template-rows: 1fr 1fr;
+    position: sticky;
+    background-image: url('../../assets/images/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    
     .header {
+        position: relative;
+        z-index: 1;
+        color: white;
+        text-align: center;
         margin: 0;
-        width: 100%;
-        height: auto;
-        background-color: blue;
+        padding: 0;
+        background-color: rgb(0, 0, 0, 0.2);
+
+        .inventory {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .section {
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .equipment {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .character {
+            display: grid;
+            grid-template-rows: .1fr 10fr;
+            gap: .3rem;
+            width: 10rem;
+            height: 28rem;
+            margin: 1rem 0;
+            padding: 0;
+            justify-items: center;
+
+            .character-text {
+                height: 2rem;
+                width: 6rem;
+                border-radius: .2rem;
+                padding: 0;
+                margin: 0;
+                font-size: 1.1rem;
+                align-content: center;
+            }
+            .ct-text {
+                color: #000;
+                background-color: rgb(152, 201, 251);
+            }
+
+            .t-text {
+                color: #000;
+                background-color: rgb(184, 92, 39);
+            }
+
+            .ct {
+                background-image: url('../../assets/images/ct-character.png');
+                background-position: center;
+                background-size: cover;
+                width: -webkit-fill-available;
+                height: -webkit-fill-available;
+            }
+            
+            .t {
+                background-image: url('../../assets/images/t-character.png');
+                background-position: center;
+                background-size: cover;
+                width: -webkit-fill-available;
+                height: -webkit-fill-available;
+            }
+        }
+        
+        .weapons {
+            display: grid;
+            grid-template-areas: "a b c d";
+            grid-template-columns: repeat(4, 1fr);
+            width: fit-content;
+            gap: 4rem 1rem;
+            background-color: #444;
+            align-content: center;
+
+            .slots {
+                width: fit-content;
+                margin: 0 2rem;
+                
+                .slot {
+                    box-shadow: 1px 1px 3px white;
+                    width: 150px;
+                    height: 112px;
+                    align-content: center;
+                    text-align: -webkit-center;
+
+                    p {
+                        width: fit-content;
+                        margin: 0;
+                        padding: .5rem;
+                    }
+
+                    img {
+                        width: -webkit-fill-available;
+                        height: -webkit-fill-available;
+                    }
+                }
+            }
+        }
+        
+        .weapon {
+            width: 100px;
+            height: 50px;
+            margin: 5px;
+            background-color: #555;
+            text-align: center;
+            line-height: 50px;
+            border: 1px solid #777;
+        }
+        
+        .medals {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 90%;
+            background-color: #333;
+            padding: 10px;
+        }
+        
+        .medal {
+            width: 80px;
+            height: 80px;
+            margin: 5px;
+            background-color: #666;
+            border: 1px solid #888;
+            text-align: center;
+            line-height: 80px;
+        }
     }
 
     .body {
         margin: 0;
-        width: 100%;
-        height: auto;
+        width: -webkit-fill-available;
         display: grid;
-        gap: 3rem;
+        grid-template-rows: 7fr .1fr;
         justify-items: center;
-
-        h2 {
-            margin: 0;
-            padding: 0;
-            color: blue;
-        }
     
         .table {
-            width: fit-content;
+            width: 90%;
             display: grid;
-            grid-template-areas: "a b c d";
+            grid-template-areas: "a b c d e f g h";
+            grid-template-columns: repeat(8, 1fr);
             margin: 0;
             padding: 0;
-            gap: 3rem;
+            gap: 2rem 1rem;
+            justify-items: center;
+            align-content: center;
+
+            .disabled {
+                opacity: 0.5;
+                pointer-events: none;
+                cursor: not-allowed;
+            }
     
             li {
                 text-decoration: none;
                 display: block;
-                width: fit-content;
-                img {
-                    width: 11rem;
-                    height: auto;
+                width: min-content;
+
+                a {
+                    width: -webkit-fill-available;
+                    display: grid;
+                    text-decoration: none;
+                    gap: .5rem;
+                    cursor: grab;
+                    
+                    img {
+                        background-color: #777;
+                        max-height: 7rem;
+                    }
+                    span {
+                        font-size: .8rem;
+                        color: white;
+                    }
                 }
             }
         }
     
+        .pagination {
+            height: fit-content;
+            margin: 0 0 .5rem 0;
+        }
+
         .pagination ::ng-deep .ngx-pagination {
             height: fit-content;
             margin: 0;
             padding: 0;
             display: flex;
-            gap: .3rem;
-            font-size: 1.1rem;
+            gap: .5rem;
+            font-size: .8rem;
+            font-weight: bold;
     
             .current {
                 color: #000;
+                background-color: white;
                 border-radius: 1rem;
+            }
+            .disabled {
+                color: #777;
             }
             a:hover {
                 border-radius: 1rem;
+                text-decoration: underline;
             }
         }
     }
+}
 
-    .footer {
-        margin: 0;
-        width: 100%;
-        height: auto;
-        background-color: red;
-    }
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: -1;
+    backdrop-filter: blur(15px);
 }
