@@ -25,6 +25,13 @@ export class LayoutComponent implements OnInit {
     { skin: null }, 
     { skin: null }, 
     { skin: null },
+    { skin: null }, 
+    { skin: null }, 
+    { skin: null }, 
+    { skin: null },
+    { skin: null }, 
+    { skin: null }, 
+    { skin: null },
   ];
   page: number = 1;
   loading: boolean = true;

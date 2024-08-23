@@ -3,51 +3,47 @@
 </div>
 <div *ngIf="!loading" class="container">
   <div class="header">
-    <div class="inventory">
-      <div class="section equipment">
-        <div class="character">
-          <div class="character-text ct-text">
-            Equip CT
-          </div>
-          <div class="ct"></div>
-        </div>
-        <div class="weapons">
-          <div 
-            class="slots" 
+    <div class="character">
+      <div class="character-text ct-text">
+        Equip CT
+      </div>
+      <div class="ct"></div>
+    </div>
+    <div class="weapons">
+      <div class="table">
+        <div class="slots" 
             (dragover)="onDragOver($event)" 
             (drop)="onDrop($event, i)"
             *ngFor="let slot of emptySlots; let i = index">
-            <div class="slot" [attr.data-index]="i">
-              <ng-container *ngIf="!slot.skin">
-                <p>Slot vazio</p>
-              </ng-container>
-              <ng-container *ngIf="slot.skin">
-                <img [src]="slot.skin.image" alt="{{ slot.skin.name }}">
-                <span>{{ slot.skin.name }}</span>
-              </ng-container>
-            </div>
+          <button *ngIf="slot.skin">X</button>
+          <div class="slot" [attr.data-index]="i">
+            <ng-container *ngIf="!slot.skin">
+              <p>Slot vazio</p>
+            </ng-container>
+            <ng-container *ngIf="slot.skin">
+              <img [src]="slot.skin.image" alt="{{ slot.skin.name }}">
+            </ng-container>
           </div>
-        </div>
-        <div class="character">
-          <div class="character-text t-text">
-            Equip T
-          </div>
-          <div class="t"></div>
         </div>
       </div>
+    </div>
+    <div class="character">
+      <div class="character-text t-text">
+        Equip T
+      </div>
+      <div class="t"></div>
     </div>
   </div>
   <div *ngIf="skins" class="body">
     <ul class="table">
-      <li 
-        *ngFor="let skin of skins | paginate: { itemsPerPage: 16, currentPage: page }"
-        [draggable]="!skin.disabled" 
-        (dragstart)="onDragStart($event, skin)"
-        [class.disabled]="skin.disabled">
-          <a [href]="['/skin/' + skin.id]">
-            <img [src]="skin.image" alt="{{ skin.name }}">
-            <span>{{ skin.name }}</span>
-          </a>
+      <li *ngFor="let skin of skins | paginate: { itemsPerPage: 16, currentPage: page }"
+          [draggable]="!skin.disabled" 
+          (dragstart)="onDragStart($event, skin)"
+          [class.disabled]="skin.disabled">
+        <a [href]="['/skin/' + skin.id]">
+          <img [src]="skin.image" alt="{{ skin.name }}">
+          <span>{{ skin.name }}</span>
+        </a>
       </li>
     </ul>
     <pagination-controls class="pagination" (pageChange)="page = $event"></pagination-controls>
