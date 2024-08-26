@@ -12,10 +12,9 @@
     <div class="weapons">
       <div class="table">
         <div class="slots" 
+            *ngFor="let slot of emptySlots; let i = index"
             (dragover)="onDragOver($event)" 
-            (drop)="onDrop($event, i)"
-            *ngFor="let slot of emptySlots; let i = index">
-          <button *ngIf="slot.skin">X</button>
+            (drop)="onDrop($event, i)">
           <div class="slot" [attr.data-index]="i">
             <ng-container *ngIf="!slot.skin">
               <p>Slot vazio</p>
@@ -35,17 +34,26 @@
     </div>
   </div>
   <div *ngIf="skins" class="body">
-    <ul class="table">
-      <li *ngFor="let skin of skins | paginate: { itemsPerPage: 16, currentPage: page }"
-          [draggable]="!skin.disabled" 
-          (dragstart)="onDragStart($event, skin)"
-          [class.disabled]="skin.disabled">
-        <a [href]="['/skin/' + skin.id]">
-          <img [src]="skin.image" alt="{{ skin.name }}">
-          <span>{{ skin.name }}</span>
-        </a>
-      </li>
-    </ul>
-    <pagination-controls class="pagination" (pageChange)="page = $event"></pagination-controls>
+    <div class="carousel">
+      <button class="prev" (click)="prevSlide()">&#10094;</button>
+      <div class="carousel-inner">
+        <div class="carousel-item" *ngFor="let slide of carouselSlides; let slideIndex = index" 
+            [ngClass]="{'active': slideIndex === currentSlide}">
+          <div class="row">
+            <div class="column" *ngFor="let skin of slide">
+              <li [draggable]="!skin.disabled" 
+                  (dragstart)="onDragStart($event, skin)"
+                  [class.disabled]="skin.disabled">
+                <a [href]="['/skin/' + skin.id]">
+                  <img [src]="skin.image" alt="{{ skin.name }}">
+                  <span>{{ skin.name }}</span>
+                </a>
+              </li>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="next" (click)="nextSlide()">&#10095;</button>
+    </div>
   </div>
 </div>
