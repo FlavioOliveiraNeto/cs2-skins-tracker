@@ -22,8 +22,13 @@
         .character {
             display: grid;
             grid-template-rows: max-content;
-            width: 12rem;
-            height: 32rem;
+            gap: .5rem;
+            width: 13vw;
+            height: 35vw;
+            max-width: 12rem;
+            max-height: 32rem;
+            min-width: 8rem;
+            min-height: 20rem;
             margin: auto 0;
             justify-items: center;
             place-self: center;
@@ -66,9 +71,8 @@
         }
         
         .weapons {
-            width: 55%;
+            width: 35%;
             height: 100%;
-            background-color: #444;
 
             .table {
                 height: -webkit-fill-available;
@@ -83,24 +87,9 @@
 
                 .slots {
                     box-shadow: 1px 1px 3px white;
+                    background-color: #444;
                     height: auto;
                     width: 8rem;
-
-                    button {
-                        border: none;
-                        background-color: red;
-                        border-radius: 3rem;
-                        font-weight: bold;
-                        position: relative;
-                        float: inline-end;
-                        top: -5px;
-                        right: -15px;
-                        cursor: pointer;
-                    }
-
-                    button:hover {
-                        background-color: rgba(255, 0, 0, 0.534);
-                    }
                     
                     .slot {
                         width: 100%;
@@ -118,6 +107,11 @@
                             position: relative;
                         }
                     }
+                }
+
+                .slots:hover {
+                    cursor: grab;
+                    background-color: #444444a6;
                 }
             }
         }
@@ -198,7 +192,7 @@
 
                                     img {
                                         height: auto;
-                                        width: 7.5rem;
+                                        width: 7.5vw;
                                         justify-self: center;
                                         cursor: grab;
                                     }
@@ -210,6 +204,10 @@
                                 }
                             }
                         }
+
+                        .column:hover {
+                            box-shadow: none;
+                        }
                     }
                 }
 
@@ -219,78 +217,48 @@
                 }
             }
         }
-               
-        /*.table {
-            height: -webkit-fill-available;
-            display: grid;
-            grid-template-areas: "a b c d e f g h";
-            grid-template-columns: repeat(8, min-content);
-            margin: .5rem auto 0 auto;
-            padding: 0;
-            gap: .5rem 2rem;
-
-            .disabled {
-                opacity: 0.5;
-                pointer-events: none;
-                cursor: not-allowed;
-            }
-    
-            li {
-                text-decoration: none;
-                display: block;
-                width: -webkit-fill-available;
-                height: fit-content;
-
-                a {
-                    width: -webkit-fill-available;
-                    display: grid;
-                    text-decoration: none;
-                    gap: .3rem;
-                    cursor: grab;
-                    
-                    img {
-                        background-color: #777;
-                        min-width: 10rem;
-                        max-width: 10rem;
-                        max-height: 7rem;
-                        min-height: 5rem;
-                    }
-                    span {
-                        font-size: .8rem;
-                        color: white;
-                    }
-                }
-            }
-        }
-    
-        .pagination {
-            height: fit-content;
-            margin: 0;
-        }
-
-        .pagination ::ng-deep .ngx-pagination {
-            height: fit-content;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: .5rem;
-            font-size: .8rem;
-            font-weight: bold;
-    
-            .current {
-                color: #000;
-                background-color: white;
-                border-radius: 1rem;
-            }
-            .disabled {
-                color: #777;
-            }
-            a:hover {
-                border-radius: 1rem;
-                text-decoration: underline;
-            }
-        }*/
     }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+        padding-top: 60px;
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+              
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+      }
+      
+      .show {
+        display: block;
+      }
+      
 }
 
 .container::before {

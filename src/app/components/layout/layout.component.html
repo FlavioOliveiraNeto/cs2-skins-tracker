@@ -14,8 +14,10 @@
         <div class="slots" 
             *ngFor="let slot of emptySlots; let i = index"
             (dragover)="onDragOver($event)" 
-            (drop)="onDrop($event, i)">
-          <div class="slot" [attr.data-index]="i">
+            (drop)="onDropSlot($event, i)">
+          <div class="slot" [attr.data-index]="i"
+              [draggable]="slot.skin !== null"
+              (dragstart)="onSlotDragStart($event, slot, i)">
             <ng-container *ngIf="!slot.skin">
               <p>Slot vazio</p>
             </ng-container>
@@ -33,10 +35,11 @@
       <div class="t"></div>
     </div>
   </div>
-  <div *ngIf="skins" class="body">
+  <div *ngIf="filteredSkins" class="body">
+    <button (click)="openFilterModal()">Filtrar Skins</button>
     <div class="carousel">
       <button class="prev" (click)="prevSlide()">&#10094;</button>
-      <div class="carousel-inner">
+      <div class="carousel-inner" (drop)="onDropToTable($event)" (dragover)="onDragOver($event)">
         <div class="carousel-item" *ngFor="let slide of carouselSlides; let slideIndex = index" 
             [ngClass]="{'active': slideIndex === currentSlide}">
           <div class="row">
@@ -56,4 +59,69 @@
       <button class="next" (click)="nextSlide()">&#10095;</button>
     </div>
   </div>
+  <div class="modal" [ngClass]="{ 'show': isFilterModalOpen }" *ngIf="skinTypes">
+    <div class="modal-content">
+      <span class="close" (click)="closeFilterModal()">&times;</span>
+      <h2>Filtrar Skins</h2>
+      <form (submit)="applyFilters()">
+        <div class="skin-filter-name">
+          <label for="name">Nome da Arma:</label>
+          <select id="name" [(ngModel)]="selectedName" name="name">
+            <option value="" hidden>Todos</option>
+            <option *ngFor="let skinName of skinNames" [value]="skinName">
+              {{ skinName }}
+            </option>
+          </select>
+        </div>
+        <div class="skin-filter-type">
+          <label for="type">Tipo de Arma:</label>
+          <select id="type" [(ngModel)]="selectedType" name="type">
+            <option value="" hidden>Todos</option>
+            <option *ngFor="let skinType of skinTypes" [value]="skinType">
+              {{ skinType }}
+            </option>
+          </select>
+        </div>
+        <div class="skin-filter-collection">
+          <label for="collection">Coleção da Arma:</label>
+          <select id="collection" [(ngModel)]="selectedCollection" name="collection">
+            <option value="" hidden>Todos</option>
+            <option *ngFor="let skinCollection of skinCollections" [value]="skinCollection">
+              {{ skinCollection }}
+            </option>
+          </select>
+        </div>
+        <div class="skin-filter-pattern">
+          <label for="pattern">Modelo da Skin:</label>
+          <select id="pattern" [(ngModel)]="selectedPattern" name="pattern">
+            <option value="" hidden>Todos</option>
+            <option *ngFor="let skinPattern of skinPatterns" [value]="skinPattern">
+              {{ skinPattern }}
+            </option>
+          </select>
+        </div>
+        <div class="skin-filter-rarity">
+          <label for="rarity">Raridade da Skin:</label>
+          <select id="rarity" [(ngModel)]="selectedRarity" name="rarity">
+            <option value="" hidden>Todos</option>
+            <option *ngFor="let skinRarity of skinRaritys" [value]="skinRarity">
+              {{ skinRarity }}
+            </option>
+          </select>
+        </div>
+        <div class="skin-filter-wear">
+          <label for="wear">Float da Skin:</label>
+          <select id="wear" [(ngModel)]="selectedWear" name="wear">
+            <option value="" hidden>Todos</option>
+            <option *ngFor="let skinWear of skinWears" [value]="skinWear">
+              {{ skinWear }}
+            </option>
+          </select>
+        </div>
+  
+        <button type="submit">Aplicar Filtros</button>
+        <button type="submit" (click)="resetFilters()">Resetar Filtros</button>
+      </form>
+    </div>
+  </div>  
 </div>
