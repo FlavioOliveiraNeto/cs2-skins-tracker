@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { SkinService } from '../../services/skin.service';
 import { FormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 interface Skin {
   id: string;
   weapon?: { name: string };
@@ -22,37 +24,37 @@ interface Filter {
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    NgSelectModule
   ],
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
+  styleUrls: [
+    './layout.component.scss',
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LayoutComponent implements OnInit {
-  /*Configuração geral*/
   skins: any[] = [];
   emptySlots: any[] = Array.from({ length: 15 }, () => ({ skin: null }));
   loading: boolean = true;
-  
-  /*Configuração carrossel*/
+
   carouselSlides: any[][] = [];
   currentSlide: number = 0;
   slidesCount: number = 0;
-  
-  /*Configuração Drag and Drop*/
+
   draggedSkin: any = null;
-  draggedSkinSlotIndex: number | null = null; 
+  draggedSkinSlotIndex: number | null = null;
 
-  /*Configuração modal*/
   isFilterModalOpen: boolean = false;
-  selectedName: string = '';
-  selectedType: string = '';
-  selectedCollection: string = '';
-  selectedPattern: string = '';
-  selectedRarity: string = '';
-  selectedWear: string = '';
+  selectedFilters: { [key: string]: string | null } = {
+    name: null,
+    type: null,
+    collection: null,
+    pattern: null,
+    rarity: null,
+    wear: null
+  };  
 
-  /*Configuração do filtro de skins*/
   filteredSkins: any[] = [];
   skinNames: any[] = [];
   skinTypes: any[] = [];
@@ -73,14 +75,14 @@ export class LayoutComponent implements OnInit {
 
           const nameSet = new Set(
             this.skins
-              .map(skin => skin.weapon.name)
+              .map(skin => skin.weapon?.name)
               .filter(name => name && name.trim() !== '')
           );
           this.skinNames = Array.from(nameSet);
 
           const typeSet = new Set(
             this.skins
-              .map(skin => skin.category.name)
+              .map(skin => skin.category?.name)
               .filter(name => name && name.trim() !== '')
           );
           this.skinTypes = Array.from(typeSet);
@@ -99,14 +101,14 @@ export class LayoutComponent implements OnInit {
           const patternSet = new Set(
             this.skins
               .filter(skin => skin.pattern)
-              .flatMap(skin => skin.pattern.name)
+              .map(skin => skin.pattern?.name)
           );
           this.skinPatterns = Array.from(patternSet);
 
           const raritySet = new Set(
             this.skins
-              .filter(skin => skin.rarity)
-              .flatMap(skin => skin.rarity.name)
+              .map(skin => skin.rarity?.name)
+              .filter(name => name && name.trim() !== '')
           );
           this.skinRaritys = Array.from(raritySet);
 
@@ -121,10 +123,7 @@ export class LayoutComponent implements OnInit {
           );
           this.skinWears = Array.from(wearSet);
 
-          console.log(this.filteredSkins)
           this.slidesCount = Math.ceil(this.filteredSkins.length / 16);
-
-          // Carregar o primeiro slide
           this.loadSlide(this.currentSlide);
 
           this.loading = false;
@@ -141,7 +140,6 @@ export class LayoutComponent implements OnInit {
   }
 
   loadSlide(slideIndex: number): void {
-    // Carregar o slide apenas se ainda não estiver carregado
     if (!this.carouselSlides[slideIndex]) {
       const start = slideIndex * 16;
       const end = start + 16;
@@ -150,13 +148,11 @@ export class LayoutComponent implements OnInit {
   }
 
   prevSlide(): void {
-    // Muda para o slide anterior e carrega o slide
     this.currentSlide = (this.currentSlide > 0) ? this.currentSlide - 1 : this.slidesCount - 1;
     this.loadSlide(this.currentSlide);
   }
 
   nextSlide(): void {
-    // Muda para o próximo slide e carrega o slide
     this.currentSlide = (this.currentSlide < this.slidesCount - 1) ? this.currentSlide + 1 : 0;
     this.loadSlide(this.currentSlide);
   }
@@ -187,16 +183,13 @@ export class LayoutComponent implements OnInit {
     event.preventDefault();
   
     if (this.draggedSkin && !this.emptySlots[index].skin) {
-      // Atribui a skin ao slot
       this.emptySlots[index].skin = this.draggedSkin;
   
-      // Desabilita a skin na tabela
       const skinIndex = this.filteredSkins.findIndex(skin => skin.id === this.draggedSkin.id);
       if (skinIndex !== -1) {
         this.filteredSkins[skinIndex].disabled = true;
       }
   
-      // Limpa a skin arrastada
       this.draggedSkin = null;
       this.draggedSkinSlotIndex = null;
     }
@@ -206,16 +199,13 @@ export class LayoutComponent implements OnInit {
     event.preventDefault();
   
     if (this.draggedSkin && !this.emptySlots[index].skin) {
-      // Atribui a skin ao slot
       this.emptySlots[index].skin = this.draggedSkin;
   
-      // Desabilita a skin na tabela
       const skinIndex = this.filteredSkins.findIndex(skin => skin.id === this.draggedSkin.id);
       if (skinIndex !== -1) {
         this.filteredSkins[skinIndex].disabled = true;
       }
   
-      // Limpa a skin arrastada
       this.draggedSkin = null;
       this.draggedSkinSlotIndex = null;
     }
@@ -225,22 +215,18 @@ export class LayoutComponent implements OnInit {
     event.preventDefault();
   
     if (this.draggedSkinSlotIndex !== null) {
-      // Habilita a skin na tabela
       const skinIndex = this.filteredSkins.findIndex(skin => skin.id === this.draggedSkin.id);
       if (skinIndex !== -1) {
         this.filteredSkins[skinIndex].disabled = false;
       }
   
-      // Remove a skin do slot
       this.emptySlots[this.draggedSkinSlotIndex].skin = null;
   
-      // Limpa a skin arrastada
       this.draggedSkin = null;
       this.draggedSkinSlotIndex = null;
     }
   }
 
-  // Métodos para controle do modal de filtro
   openFilterModal(): void {
     this.isFilterModalOpen = true;
   }
@@ -250,42 +236,37 @@ export class LayoutComponent implements OnInit {
   }
 
   resetFilters():void {
-    this.selectedName = '';
-    this.selectedType = '';
-    this.selectedCollection = '';
-    this.selectedPattern = '';
-    this.selectedRarity = '';
-    this.selectedWear = '';
+    Object.keys(this.selectedFilters).forEach(key => {
+      this.selectedFilters[key] = '';
+    });
+    this.applyFilters();
   }
 
   applyFilters(): void {
-    // Define o objeto filter
-    const filter: Filter = {
-      name: this.selectedName ? this.normalizeString(this.selectedName) : null,
-      type: this.selectedType ? this.normalizeString(this.selectedType) : null,
-      collection: this.selectedCollection ? this.normalizeString(this.selectedCollection) : null,
-      pattern: this.selectedPattern ? this.normalizeString(this.selectedPattern) : null,
-      rarity: this.selectedRarity ? this.normalizeString(this.selectedRarity) : null,
-      wear: this.selectedWear ? this.normalizeString(this.selectedWear) : null,
+    const filter: Filter = Object.keys(this.selectedFilters).reduce((acc, key) => {
+      const value = this.selectedFilters[key];
+      acc[key] = value ? this.normalizeString(value) : null;
+      return acc;
+    }, {} as Filter);
+  
+    const filterFunctions: { [key: string]: (skin: Skin, filterValue: string) => boolean } = {
+      name: (skin, filterValue) => skin.weapon ? this.normalizeString(skin.weapon.name).includes(filterValue) : false,
+      type: (skin, filterValue) => skin.category ? this.normalizeString(skin.category.name).includes(filterValue) : false,
+      collection: (skin, filterValue) =>
+        skin.collections ? skin.collections.some(collection => this.normalizeString(collection.name).includes(filterValue)) : false,
+      pattern: (skin, filterValue) => skin.pattern ? this.normalizeString(skin.pattern.name).includes(filterValue) : false,
+      rarity: (skin, filterValue) => skin.rarity ? this.normalizeString(skin.rarity.name).includes(filterValue) : false,
+      wear: (skin, filterValue) =>
+        skin.wears ? skin.wears.some(wear => this.normalizeString(wear.name).includes(filterValue)) : false
     };
-
-    // Filtra as skins com base nos critérios
+  
     this.filteredSkins = this.skins.filter((skin: Skin) => {
       return Object.keys(filter).every((key) => {
         const filterValue: string | null = filter[key];
-        
-        if (filterValue === null || filterValue === undefined) {
-          return true; // Ignora filtros nulos ou indefinidos
-        }
-    
-        // Obtém o valor correspondente da skin
-        const skinValue = skin[key as keyof Skin] as string;
-        
-        if (skinValue === null || skinValue === undefined) {
-          return true; // Ignora filtros nulos ou indefinidos
-        }
-
-        return skinValue ? this.normalizeString(skinValue).includes(filterValue) : false;
+        if (!filterValue) return true;
+  
+        const filterFunction = filterFunctions[key];
+        return filterFunction ? filterFunction(skin, filterValue) : false;
       });
     });
 
@@ -298,10 +279,6 @@ export class LayoutComponent implements OnInit {
   }
 
   normalizeString(input: string): string {
-    if(input) {
-      return input.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    } else {
-      return '';
-    }
+    return input ? input.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
   }
 }

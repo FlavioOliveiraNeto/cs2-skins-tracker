@@ -22,6 +22,7 @@
     "@angular/router": "^18.1.0",
     "@angular/ssr": "^18.1.4",
     "@ng-bootstrap/ng-bootstrap": "^17.0.0",
+    "@ng-select/ng-select": "^13.7.0",
     "bootstrap": "^5.3.3",
     "express": "^4.18.2",
     "ngx-pagination": "^6.0.3",
