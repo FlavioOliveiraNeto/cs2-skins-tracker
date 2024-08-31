@@ -43,7 +43,7 @@
               <li [draggable]="!skin.disabled" 
                   (dragstart)="onDragStart($event, skin)"
                   [class.disabled]="skin.disabled">
-                <a [href]="['/skin', skin.id]">
+                <a [href]="['/skin/' + skin.id]">
                   <img [src]="skin.image" alt="{{ skin.name }}">
                   <span>{{ skin.name }}</span>
                 </a>
