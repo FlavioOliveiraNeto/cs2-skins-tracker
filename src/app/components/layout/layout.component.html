@@ -66,7 +66,8 @@
                      bindLabel="name"
                      placeholder="Todos"
                      [(ngModel)]="selectedFilters['name']"
-                     name="name">
+                     name="name"
+                     class="custom">
           </ng-select>
         </div>
         <div class="skin-filter-type">
@@ -75,7 +76,8 @@
                      bindLabel="type"
                      placeholder="Todos"
                      [(ngModel)]="selectedFilters['type']"
-                     name="type">
+                     name="type"
+                     class="custom">
           </ng-select>
         </div>     
         <div class="skin-filter-collection">
@@ -84,7 +86,8 @@
                      bindLabel="collection"
                      placeholder="Todos"
                      [(ngModel)]="selectedFilters['collection']"
-                     name="collection">
+                     name="collection"
+                     class="custom">
           </ng-select>
         </div>      
         <div class="skin-filter-pattern">
@@ -93,7 +96,8 @@
                      bindLabel="pattern"
                      placeholder="Todos"
                      [(ngModel)]="selectedFilters['pattern']"
-                     name="pattern">
+                     name="pattern"
+                     class="custom">
           </ng-select>
         </div>     
         <div class="skin-filter-rarity">
@@ -102,7 +106,8 @@
                      bindLabel="rarity"
                      placeholder="Todos"
                      [(ngModel)]="selectedFilters['rarity']"
-                     name="rarity">
+                     name="rarity"
+                     class="custom">
           </ng-select>
         </div>      
         <div class="skin-filter-wear">
@@ -111,12 +116,15 @@
                      bindLabel="wear"
                      placeholder="Todos"
                      [(ngModel)]="selectedFilters['wear']"
-                     name="wear">
+                     name="wear"
+                     class="custom">
           </ng-select>
         </div>
       
-        <button type="submit">Aplicar Filtros</button>
-        <button type="button" (click)="resetFilters()">Resetar Filtros</button>
+        <div class="buttons">
+          <button type="submit">Aplicar Filtros</button>
+          <button type="button" (click)="resetFilters()">Resetar Filtros</button>
+        </div>
       </form>        
     </div>
   </div>  

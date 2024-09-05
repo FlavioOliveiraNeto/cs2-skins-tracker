@@ -277,73 +277,40 @@
                     font-size: 1rem;
                     color: #555;
                     margin-bottom: 5px;
-                }
+                }      
 
-                .ng-select {
-                    width: 100%;
-                    font-size: 1rem;
-                    border: 1px solid black;
-                    border-radius: .3rem;
-                    padding: .5rem;
-                    margin: .3rem 0 0 0;
+                .buttons {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 10rem;
 
-                    .ng-select-container {
+                    button {
+                        padding: 10px;
+                        border: none;
                         border-radius: 5px;
-                        background-color: #f9f9f9;
+                        font-size: 1rem;
+                        cursor: pointer;
+                        transition: background-color 0.3s ease;
+                        width: 100%;
                     }
-
-                    .ng-dropdown-panel {
-                        position: relative;
-                        border-radius: 0 0 5px 5px;
-                        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    
+                    button[type="submit"] {
+                        background-color: #2ecc71;
+                        color: white;
                     }
-
-                }
-                  
-                .ng-select .ng-option {
-                    padding: 8px;
-                    font-size: 1rem;
-                    color: #333;
-                    background-color: #fff;
-                    border-bottom: 1px solid #eee;
-                }
-                  
-                .ng-select .ng-option:hover,
-                .ng-select .ng-option.selected {
-                    background-color: #2ecc71;
-                    color: #fff;
-                }
-                  
-                .ng-select .ng-clear-zone,
-                .ng-select .ng-arrow-zone {
-                    color: #888;
-                }                  
-
-                button {
-                    padding: 10px;
-                    border: none;
-                    border-radius: 5px;
-                    font-size: 1rem;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                }
-
-                button[type="submit"] {
-                    background-color: #2ecc71;
-                    color: white;
-                }
-                
-                button[type="submit"]:hover {
-                    background-color: #27ae60;
-                }
-                
-                button[type="button"] {
-                    background-color: #e74c3c;
-                    color: white;
-                }
-                
-                button[type="button"]:hover {
-                    background-color: #c0392b;
+                    
+                    button[type="submit"]:hover {
+                        background-color: #27ae60;
+                    }
+                    
+                    button[type="button"] {
+                        background-color: #e74c3c;
+                        color: white;
+                    }
+                    
+                    button[type="button"]:hover {
+                        background-color: #c0392b;
+                    }
                 }
             }
         }
