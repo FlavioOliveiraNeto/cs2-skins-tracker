@@ -1,6 +1,6 @@
 # Cs2SkinsTracker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
+Project with the aim of learning the Angular framework, Typescript and test-oriented programming. The project is still in its initial phase.
 
 ## Development server
 
